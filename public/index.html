@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090b12" />
+    <meta
+      name="description"
+      content="Discover apps and games published on SurgeAI."
+    />
+    <title>SurgeAI — Apps & Games</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #090b12;
+        color: #f5f6fb;
+        font-synthesis: none;
+        --muted: #9da5ba;
+        --line: #252a3b;
+        --accent: #9a8cff;
+        --panel: #111522;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; background: radial-gradient(ellipse at 50% -20%, #28204f 0, transparent 55%), #090b12; }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; }
+      .wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+      header { border-bottom: 1px solid #ffffff12; }
+      .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; }
+      .brand { font-size: 1.15rem; font-weight: 800; letter-spacing: -.06em; }
+      .brand span { color: var(--accent); }
+      .nav-note { color: var(--muted); font-size: .88rem; }
+      .hero { padding: 86px 0 42px; text-align: center; }
+      .eyebrow { color: #c4bbff; text-transform: uppercase; letter-spacing: .16em; font-weight: 700; font-size: .72rem; }
+      h1 { margin: 16px 0 14px; font-size: clamp(2.8rem, 8vw, 5.3rem); line-height: .98; letter-spacing: -.075em; }
+      .hero p { margin: auto; max-width: 560px; color: var(--muted); line-height: 1.7; }
+      main { min-height: 52vh; padding: 28px 0 90px; }
+      .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 22px 0; }
+      .toolbar h2 { margin: 0; font-size: 1.2rem; letter-spacing: -.03em; }
+      .filters { display: flex; gap: 8px; }
+      .filter { border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; color: var(--muted); background: transparent; cursor: pointer; }
+      .filter[aria-pressed="true"] { border-color: #9a8cff80; color: #e4dfff; background: #9a8cff17; }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .card { border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: linear-gradient(145deg, #151a2a, var(--panel)); display: flex; flex-direction: column; min-height: 230px; }
+      .card-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+      .badge { color: #c4bbff; text-transform: uppercase; letter-spacing: .1em; font-size: .68rem; font-weight: 800; }
+      .platform { color: var(--muted); font-size: .76rem; }
+      .card h3 { margin: 24px 0 8px; font-size: 1.25rem; letter-spacing: -.04em; }
+      .card p { color: var(--muted); font-size: .9rem; line-height: 1.6; margin: 0 0 22px; }
+      .download { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 11px 14px; border-radius: 11px; background: #9a8cff; color: #100d20; font-size: .88rem; font-weight: 800; }
+      .download:hover { background: #b0a7ff; }
+      .empty { grid-column: 1 / -1; border: 1px dashed #353b50; border-radius: 18px; padding: 45px 20px; text-align: center; color: var(--muted); }
+      .empty strong { display: block; color: #e5e7f2; margin-bottom: 6px; }
+      footer { border-top: 1px solid #ffffff12; padding: 22px 0; color: var(--muted); font-size: .8rem; }
+      .footer { display: flex; justify-content: space-between; gap: 20px; }
+      .footer a:hover { color: #fff; }
+      @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 540px) { .wrap { width: min(100% - 28px, 1120px); } .hero { padding-top: 62px; } .toolbar { align-items: flex-start; flex-direction: column; } .grid { grid-template-columns: 1fr; } .footer { flex-direction: column; gap: 8px; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="/" aria-label="SurgeAI home">SURGE<span>AI</span></a>
+        <span class="nav-note">Apps & games, ready to explore</span>
+      </div>
+    </header>
+    <section class="hero wrap">
+      <span class="eyebrow">Discover something new</span>
+      <h1>Made to play.<br />Built to move.</h1>
+      <p>A growing collection of apps and games from SurgeAI. Find your next download below.</p>
+    </section>
+    <main class="wrap">
+      <div class="toolbar">
+        <h2>Explore the collection</h2>
+        <div class="filters" aria-label="Filter catalog">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-filter="app" aria-pressed="false">Apps</button>
+          <button class="filter" type="button" data-filter="game" aria-pressed="false">Games</button>
+        </div>
+      </div>
+      <div class="grid" id="catalog" aria-live="polite">
+        <div class="empty"><strong>Loading the collection…</strong>Please wait a moment.</div>
+      </div>
+    </main>
+    <footer>
+      <div class="wrap footer">
+        <span>© <span id="year"></span> SurgeAI</span>
+        <a href="https://github.com/EmperorAsy/surgeai/releases">Get the releases</a>
+      </div>
+    </footer>
+    <script>
+      const catalog = document.querySelector("#catalog");
+      let items = [];
+      let activeFilter = "all";
+
+      function renderCatalog() {
+        const visibleItems = items.filter(
+          (item) => activeFilter === "all" || item.category === activeFilter,
+        );
+        catalog.replaceChildren();
+
+        if (visibleItems.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          const heading = document.createElement("strong");
+          heading.textContent = items.length ? "Nothing in this category yet" : "The collection is getting ready";
+          const message = document.createElement("span");
+          message.textContent = items.length ? "Try another filter." : "Check back soon for new apps and games.";
+          empty.append(heading, message);
+          catalog.append(empty);
+          return;
+        }
+
+        for (const item of visibleItems) {
+          const card = document.createElement("article");
+          card.className = "card";
+          const top = document.createElement("div");
+          top.className = "card-top";
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = item.category;
+          const platform = document.createElement("span");
+          platform.className = "platform";
+          platform.textContent = item.platform;
+          top.append(badge, platform);
+
+          const title = document.createElement("h3");
+          title.textContent = item.title;
+          const description = document.createElement("p");
+          description.textContent = item.description;
+          const download = document.createElement("a");
+          download.className = "download";
+          const releaseUrl = new URL(item.downloadUrl);
+          if (
+            releaseUrl.protocol !== "https:" ||
+            releaseUrl.hostname !== "github.com" ||
+            !releaseUrl.pathname.includes("/releases/download/")
+          ) {
+            throw new Error("Catalog contains an invalid release URL.");
+          }
+          download.href = releaseUrl.href;
+          download.textContent = Number.isFinite(item.size) && item.size > 0
+            ? `Download · ${(item.size / (1024 * 1024)).toFixed(1)} MB`
+            : "Download";
+          card.append(top, title, description, download);
+          catalog.append(card);
+        }
+      }
+
+      document.querySelectorAll(".filter").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeFilter = button.dataset.filter;
+          document.querySelectorAll(".filter").forEach((filter) => {
+            filter.setAttribute("aria-pressed", String(filter === button));
+          });
+          renderCatalog();
+        });
+      });
+
+      document.querySelector("#year").textContent = new Date().getFullYear();
+      fetch("catalog.json")
+        .then((response) => {
+          if (!response.ok) throw new Error("Catalog request failed.");
+          return response.json();
+        })
+        .then((data) => {
+          if (!Array.isArray(data)) throw new Error("Catalog response is invalid.");
+          items = data;
+          renderCatalog();
+        })
+        .catch(() => {
+          catalog.replaceChildren();
+          const message = document.createElement("div");
+          message.className = "empty";
+          message.textContent = "The collection could not be loaded. Please try again later.";
+          catalog.append(message);
+        });
+    </script>
+  </body>
+</html>
