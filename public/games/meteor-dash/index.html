@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090b12" />
+    <meta name="description" content="Pilot a starship, collect energy, and dodge a meteor storm in Meteor Dash on SurgeAI." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'" />
+    <link rel="canonical" href="https://surgeai.si/games/meteor-dash/" />
+    <title>Meteor Dash — SurgeAI</title>
+    <style>
+      :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #090b12; color: #f5f6fb; --muted: #9da5ba; --line: #252a3b; --accent: #9a8cff; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; background: radial-gradient(ellipse at 50% 0, #28204f 0, transparent 55%), #090b12; }
+      a { color: inherit; text-decoration: none; }
+      header, footer { border-color: #ffffff12; border-style: solid; }
+      header { border-width: 0 0 1px; }
+      footer { border-width: 1px 0 0; color: var(--muted); font-size: .82rem; }
+      .wrap { width: min(800px, calc(100% - 32px)); margin: auto; }
+      .nav, .footer { min-height: 68px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      .brand { font-weight: 850; letter-spacing: -.06em; }.brand span { color: var(--accent); }
+      .back { color: var(--muted); font-size: .88rem; }
+      main { align-self: center; width: min(100% - 32px, 620px); margin: 28px auto; text-align: center; }
+      .eyebrow { color: #c4bbff; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: .7rem; }
+      h1 { margin: 10px 0; font-size: clamp(2.4rem, 10vw, 4rem); line-height: 1; letter-spacing: -.07em; }
+      .intro { color: var(--muted); line-height: 1.6; margin: 0 auto 18px; }
+      .panel { padding: clamp(14px, 4vw, 24px); border: 1px solid var(--line); border-radius: 22px; background: #111522dd; }
+      .stats { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 12px; color: #d7d0ff; font-weight: 700; }
+      canvas { display: block; width: 100%; height: min(52vh, 430px); min-height: 300px; border: 1px solid #37334f; border-radius: 15px; background: #090b12; touch-action: none; }
+      .status { min-height: 1.5em; margin: 13px 0; color: var(--muted); font-size: .9rem; }
+      .start { border: 0; border-radius: 11px; padding: 12px 18px; background: var(--accent); color: #100d20; font-weight: 800; cursor: pointer; }
+      .start:disabled { opacity: .7; cursor: default; }
+      .start:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+      .help { margin: 13px 0 0; color: var(--muted); font-size: .78rem; line-height: 1.6; }
+    </style>
+  </head>
+  <body data-game="meteor-dash">
+    <header><div class="wrap nav"><a class="brand" href="../../">SURGE<span>AI</span></a><a class="back" href="../../">← All games</a></div></header>
+    <main>
+      <span class="eyebrow">Action · Dodge and collect</span>
+      <h1>Meteor Dash</h1>
+      <p class="intro">Guide your ship through a meteor storm. Each teal energy orb is worth 10 points.</p>
+      <section class="panel" aria-label="Meteor Dash game">
+        <div class="stats"><span id="score">Energy: 0</span><span id="best">Best: 0</span></div>
+        <canvas id="game" aria-label="Starship dodging meteors and collecting energy"></canvas>
+        <p class="status" id="status" aria-live="polite">Ready for launch? Start a flight.</p>
+        <button class="start" id="start" type="button">Start flight</button>
+        <p class="help">Move with arrow keys or WASD. On touch screens, drag your ship around the playfield.</p>
+      </section>
+    </main>
+    <footer><div class="wrap footer"><span>SurgeAI Arcade</span><a class="back" href="../../">Back to the catalog</a></div></footer>
+    <script src="../../games.js?v=20261110-arcade-2" defer></script>
+  </body>
+</html>

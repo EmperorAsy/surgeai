@@ -22,5 +22,21 @@
     "category": "game",
     "platform": "Browser · Solo",
     "playUrl": "./games/number-rush/"
+  },
+  {
+    "id": "meteor-dash",
+    "title": "Meteor Dash",
+    "description": "Pilot a nimble starship, collect glowing energy, and dodge a storm of falling meteors.",
+    "category": "game",
+    "platform": "Action · Keyboard or touch",
+    "playUrl": "./games/meteor-dash/"
+  },
+  {
+    "id": "startup-studio",
+    "title": "Startup Studio",
+    "description": "Build a startup through eight fast-moving weeks. Balance product, marketing, research, and cash.",
+    "category": "game",
+    "platform": "Business · Strategy",
+    "playUrl": "./games/startup-studio/"
   }
 ]
