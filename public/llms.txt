@@ -1,10 +1,14 @@
 # SurgeAI
 
-> SurgeAI is a public catalog of apps and games distributed through GitHub Releases.
+> SurgeAI is a collection of browser apps, games, and educational guides with downloadable releases hosted on GitHub.
 
 ## Resources
 
 - [SurgeAI website](https://surgeai.si/): Browse the app and game catalog.
+- [Mythology and astrology guide](https://surgeai.si/mythology/): Introductory sections on Hindu, Greek, and Egyptian traditions, astrology, rituals, and a private in-browser symbolic reflection form.
+- [Hindu epics and stories](https://surgeai.si/mythology/stories/): Original short retellings from the Mahabharata, Ramayana, and Vishnu Purana, with source references and edition notes.
 - [App and game catalog](https://surgeai.si/catalog.json): Static JSON catalog with release download URLs.
+- [Browser apps](https://surgeai.si/): Currency conversion, calculator, land mapping, measurement conversion, and compass.
+- [Recent app activity](https://surgeai.si/): The latest 15 activities are kept locally for seven days; activity is not shared across devices.
 - [GitHub Releases](https://github.com/EmperorAsy/surgeai/releases): Download published app and game files.
 - [Source repository](https://github.com/EmperorAsy/surgeai): Website source and publishing instructions.

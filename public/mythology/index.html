@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11101a" />
+    <meta name="description" content="Explore introductory guides to Hindu, Greek, and Egyptian mythologies, astrology, and ritual traditions on SurgeAI." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'" />
+    <title>Mythology &amp; Astrology — SurgeAI</title>
+    <link rel="canonical" href="https://surgeai.si/mythology/" />
+    <style>
+      :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #11101a; color: #f7f3ed; --muted: #b6adbd; --line: #393244; --accent: #e7b66d; --panel: #1b1824; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; background: radial-gradient(ellipse at 50% -15%, #48351f 0, transparent 48%), #11101a; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: min(980px, calc(100% - 36px)); margin: auto; }
+      header, footer { border-color: #ffffff17; border-style: solid; }
+      header { border-width: 0 0 1px; }
+      footer { border-width: 1px 0 0; color: var(--muted); font-size: .82rem; }
+      .nav, .footer { min-height: 68px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      .brand { font-weight: 850; letter-spacing: -.06em; }
+      .brand span { color: var(--accent); }
+      .nav-links { display: flex; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: .86rem; }
+      .nav-links a:hover, .footer a:hover { color: var(--accent); }
+      main { padding: 68px 0 82px; }
+      .hero { max-width: 700px; margin-bottom: 34px; }
+      .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; font-weight: 800; }
+      h1 { margin: 13px 0; font-size: clamp(2.5rem, 8vw, 4.8rem); line-height: 1; letter-spacing: -.07em; }
+      .hero p, .intro { color: var(--muted); line-height: 1.75; }
+      .topic-nav { display: flex; flex-wrap: wrap; gap: 9px; margin: 26px 0 38px; }
+      .topic-nav a { border: 1px solid var(--line); border-radius: 999px; padding: 9px 13px; color: #f1d9b2; font-size: .83rem; }
+      .topic-nav a:hover { border-color: var(--accent); background: #e7b66d14; }
+      .topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+      .topic { scroll-margin-top: 20px; border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: linear-gradient(145deg, #211d2a, var(--panel)); }
+      .topic h2 { margin: 0 0 9px; color: #f1d9b2; font-size: 1.2rem; letter-spacing: -.03em; }
+      .topic p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+      .note { margin-top: 20px; border-left: 3px solid var(--accent); padding: 12px 15px; color: var(--muted); background: #e7b66d0c; font-size: .88rem; line-height: 1.65; }
+      .oracle { scroll-margin-top: 24px; margin: 0 0 42px; border: 1px solid #63503a; border-radius: 20px; padding: clamp(18px, 4vw, 30px); background: linear-gradient(145deg, #292131, #1b1824 72%); }
+      .oracle h2 { margin: 8px 0; font-size: clamp(1.6rem, 5vw, 2.2rem); letter-spacing: -.05em; }
+      .oracle-intro { max-width: 680px; color: var(--muted); line-height: 1.7; }
+      .privacy-note { margin: 18px 0; border-left: 3px solid var(--accent); padding: 10px 13px; color: #e9dcc8; background: #e7b66d0c; font-size: .84rem; line-height: 1.6; }
+      .oracle-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+      .oracle-field { display: grid; gap: 7px; color: #f1d9b2; font-size: .85rem; font-weight: 700; }
+      .oracle-field input, .oracle-field select { width: 100%; min-height: 44px; border: 1px solid #51465a; border-radius: 10px; padding: 10px 12px; color: #f7f3ed; background: #13111a; font: inherit; }
+      .oracle-field input:focus, .oracle-field select:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .oracle-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; grid-column: 1 / -1; margin-top: 2px; }
+      .oracle-button { min-height: 44px; border: 1px solid var(--accent); border-radius: 10px; padding: 10px 16px; color: #1b140c; background: var(--accent); font: inherit; font-weight: 800; cursor: pointer; }
+      .oracle-button.secondary { color: #f1d9b2; background: transparent; }
+      .oracle-button:hover { filter: brightness(1.08); }
+      .oracle-button:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+      .oracle-results { display: grid; gap: 10px; margin-top: 22px; }
+      .oracle-results:empty { display: none; }
+      .oracle-results h3 { margin: 0; color: #f1d9b2; font-size: 1.2rem; }
+      .oracle-results > p { margin: 0 0 4px; color: var(--muted); font-size: .86rem; line-height: 1.6; }
+      .reading-card { border: 1px solid var(--line); border-radius: 13px; padding: 15px; background: #13111acc; }
+      .reading-card h4 { margin: 0 0 6px; color: #f1d9b2; font-size: .96rem; }
+      .reading-card p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+      @media (max-width: 620px) { .nav, .footer { align-items: flex-start; flex-direction: column; justify-content: center; padding: 14px 0; } .topic-grid, .oracle-form { grid-template-columns: 1fr; } main { padding-top: 52px; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="../" aria-label="SurgeAI home">SURGE<span>AI</span></a>
+        <nav class="nav-links" aria-label="Site sections">
+          <a href="../?category=app#catalog">Apps &amp; tools</a>
+          <a href="../?category=game#catalog">Games</a>
+          <a href="./" aria-current="page">Mythology &amp; astrology</a>
+          <a href="./stories/">Hindu stories</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <section class="hero">
+        <span class="eyebrow">Stories · skies · traditions</span>
+        <h1>Mythology &amp;<br />astrology</h1>
+        <p>An introductory space for exploring stories, symbols, and cultural traditions from Hindu, Greek, and ancient Egyptian worlds, alongside the history of astrology and ritual practices.</p>
+      </section>
+      <nav class="topic-nav" aria-label="Guide topics">
+        <a href="#oracle">Get a symbolic reading</a>
+        <a href="./stories/">Read Hindu stories</a>
+        <a href="#hindu">Hindu traditions</a>
+        <a href="#greek">Greek traditions</a>
+        <a href="#egyptian">Egyptian traditions</a>
+        <a href="#astrology">Astrology</a>
+        <a href="#rituals">Rituals &amp; observances</a>
+      </nav>
+      <section class="oracle" id="oracle" aria-labelledby="oracle-title">
+        <span class="eyebrow">A private, playful reflection</span>
+        <h2 id="oracle-title">Ask the story guide</h2>
+        <p class="oracle-intro">Share as much or as little as you like for a personal reflection drawing on several symbolic traditions, numerology, color symbolism (sometimes called colorology), and an A–Z name prompt. Every field is optional.</p>
+        <p class="privacy-note"><strong>Your details stay in this browser.</strong> Nothing is sent to a server or saved after you leave or clear the form. This is for entertainment and reflection—not a factual prediction, a formal Jyotish birth chart, or a substitute for advice from a qualified professional.</p>
+        <form class="oracle-form" id="oracle-form">
+          <label class="oracle-field" for="oracle-name">First name (optional)
+            <input id="oracle-name" name="name" type="text" maxlength="60" autocomplete="given-name" placeholder="How should the guide address you?" />
+          </label>
+          <label class="oracle-field" for="oracle-date">Date of birth (optional)
+            <input id="oracle-date" name="birthDate" type="date" autocomplete="bday" />
+          </label>
+          <label class="oracle-field" for="oracle-time">Birth time (optional)
+            <input id="oracle-time" name="birthTime" type="time" />
+          </label>
+          <label class="oracle-field" for="oracle-place">Birthplace (optional)
+            <input id="oracle-place" name="birthPlace" type="text" maxlength="80" autocomplete="off" placeholder="City or region; no address" />
+          </label>
+          <label class="oracle-field" for="oracle-color">A color you feel drawn to (optional)
+            <select id="oracle-color" name="color">
+              <option value="">No color preference</option>
+              <option value="red">Red</option>
+              <option value="orange">Orange</option>
+              <option value="yellow">Yellow</option>
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+              <option value="purple">Purple</option>
+              <option value="white">White</option>
+              <option value="black">Black</option>
+            </select>
+          </label>
+          <div class="oracle-actions">
+            <button class="oracle-button" type="submit">Create my reflection</button>
+            <button class="oracle-button secondary" id="oracle-clear" type="reset">Clear details</button>
+          </div>
+        </form>
+        <div class="oracle-results" id="oracle-results" aria-live="polite" aria-atomic="false"></div>
+      </section>
+      <div class="topic-grid">
+        <article class="topic" id="hindu">
+          <h2>Hindu traditions</h2>
+          <p>Explore varied stories, philosophies, and devotional traditions, including the Ramayana and Mahabharata. Interpretations and practices differ across communities, regions, and time.</p>
+        </article>
+        <article class="topic" id="greek">
+          <h2>Greek traditions</h2>
+          <p>Meet the gods, heroes, and origin stories preserved in ancient poetry, drama, and art. Many stories survive in different versions, each shaped by its source and historical setting.</p>
+        </article>
+        <article class="topic" id="egyptian">
+          <h2>Ancient Egyptian traditions</h2>
+          <p>Discover deities, creation stories, royal traditions, and ideas about life and the afterlife across a civilization that changed over thousands of years.</p>
+        </article>
+        <article class="topic" id="astrology">
+          <h2>Astrology through history</h2>
+          <p>Learn how different cultures have used celestial patterns in calendars, symbolism, and belief. Astrology is a cultural and spiritual tradition, not a scientifically established way to predict events or personality.</p>
+        </article>
+        <article class="topic" id="rituals">
+          <h2>Rituals &amp; observances</h2>
+          <p>Understand the context and meaning of ceremonies, festivals, offerings, and everyday observances. Living traditions are diverse; no single description represents every community or practitioner.</p>
+        </article>
+        <aside class="note">This section is an educational starting point. Future guides should distinguish historical evidence, traditional beliefs, and modern interpretations, and treat living religions and cultures with care.</aside>
+      </div>
+    </main>
+    <footer>
+      <div class="wrap footer">
+        <span>© SurgeAI · Mythology &amp; astrology</span>
+        <a href="../">All sections</a>
+      </div>
+    </footer>
+    <script src="./oracle.js?v=20261110-sections-1" defer></script>
+  </body>
+</html>

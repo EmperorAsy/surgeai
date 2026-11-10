@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111522" />
+    <meta name="description" content="A fast, accessible everyday calculator for arithmetic, percentages, and decimals." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'" />
+    <link rel="canonical" href="https://surgeai.si/apps/calculator/" />
+    <link rel="stylesheet" href="../../tools.css?v=20261110-sections-1" />
+    <link rel="stylesheet" href="../../theme.css?v=20261110-sections-1" />
+    <title>Calculator — SurgeAI</title>
+  </head>
+  <body data-app="calculator">
+    <header><div class="wrap nav"><a class="brand" href="../../?v=20261110-sections-1">SURGE<span>AI</span></a><a class="back" href="../../?v=20261110-sections-1">← Apps & games</a></div></header>
+    <main class="tool-main">
+      <div class="tool-heading"><span class="eyebrow">Everyday calculation</span><h1>Calculator</h1><p>Clear, quick arithmetic with keyboard support. No expressions are sent anywhere.</p></div>
+      <section class="tool-panel" aria-label="Calculator">
+        <div class="calculator">
+          <output class="calculator-display" id="display" aria-live="polite">0</output>
+          <div class="calc-keys" id="keys" aria-label="Calculator keys">
+            <button class="calc-key operator" data-key="C" type="button">C</button><button class="calc-key operator" data-key="±" type="button">±</button><button class="calc-key operator" data-key="%" type="button">%</button><button class="calc-key operator" data-key="÷" type="button">÷</button>
+            <button class="calc-key" data-key="7" type="button">7</button><button class="calc-key" data-key="8" type="button">8</button><button class="calc-key" data-key="9" type="button">9</button><button class="calc-key operator" data-key="×" type="button">×</button>
+            <button class="calc-key" data-key="4" type="button">4</button><button class="calc-key" data-key="5" type="button">5</button><button class="calc-key" data-key="6" type="button">6</button><button class="calc-key operator" data-key="−" type="button">−</button>
+            <button class="calc-key" data-key="1" type="button">1</button><button class="calc-key" data-key="2" type="button">2</button><button class="calc-key" data-key="3" type="button">3</button><button class="calc-key operator" data-key="+" type="button">+</button>
+            <button class="calc-key operator" data-key="⌫" type="button" aria-label="Backspace">⌫</button><button class="calc-key" data-key="0" type="button">0</button><button class="calc-key" data-key="." type="button">.</button><button class="calc-key equals" data-key="=" type="button">=</button>
+          </div>
+          <p class="tool-status" id="status" aria-live="polite">Ready</p>
+        </div>
+      </section>
+    </main>
+    <footer><div class="wrap footer"><span>SurgeAI Tools</span><a class="back" href="../../?v=20261110-sections-1">Back to apps and games</a></div></footer>
+    <script src="../../apps.js?v=20261110-sections-1" defer></script>
+  </body>
+</html>

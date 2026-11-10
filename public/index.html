@@ -6,13 +6,13 @@
     <meta name="theme-color" content="#090b12" />
     <meta
       name="description"
-      content="Discover apps and games published on SurgeAI."
+      content="Explore browser apps, games, and mythology and astrology guides on SurgeAI."
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'"
     />
-    <title>SurgeAI — Apps & Games</title>
+    <title>SurgeAI — Apps, Games & Guides</title>
     <link rel="canonical" href="https://surgeai.si/" />
     <link rel="ard" href="./.well-known/ard.json" />
     <style>
@@ -36,7 +36,8 @@
       .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; }
       .brand { font-size: 1.15rem; font-weight: 800; letter-spacing: -.06em; }
       .brand span { color: var(--accent); }
-      .nav-note { color: var(--muted); font-size: .88rem; }
+      .nav-links { display: flex; flex-wrap: wrap; gap: 18px; color: var(--muted); font-size: .88rem; }
+      .nav-links a:hover { color: #fff; }
       .hero { padding: 86px 0 42px; text-align: center; }
       .eyebrow { color: #c4bbff; text-transform: uppercase; letter-spacing: .16em; font-weight: 700; font-size: .72rem; }
       h1 { margin: 16px 0 14px; font-size: clamp(2.8rem, 8vw, 5.3rem); line-height: .98; letter-spacing: -.075em; }
@@ -58,6 +59,14 @@
       .download:hover { background: #b0a7ff; }
       .empty { grid-column: 1 / -1; border: 1px dashed #353b50; border-radius: 18px; padding: 45px 20px; text-align: center; color: var(--muted); }
       .empty strong { display: block; color: #e5e7f2; margin-bottom: 6px; }
+      .sections { margin: 0 0 42px; }
+      .sections h2 { margin: 0 0 14px; font-size: 1.2rem; letter-spacing: -.03em; }
+      .section-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      .section-card { display: flex; flex-direction: column; min-height: 168px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(145deg, #151a2a, var(--panel)); transition: transform .18s ease, border-color .18s ease; }
+      .section-card:hover { transform: translateY(-3px); border-color: #9a8cff80; }
+      .section-card strong { color: #e5e1ff; font-size: 1rem; }
+      .section-card span { margin-top: 9px; color: var(--muted); font-size: .86rem; line-height: 1.55; }
+      .section-card em { margin-top: auto; padding-top: 16px; color: #c4bbff; font-size: .8rem; font-style: normal; font-weight: 800; }
       .score-history { margin-top: 32px; border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: #111522dd; }
       .score-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
       .score-heading h2 { margin: 0; font-size: 1.15rem; }
@@ -70,26 +79,61 @@
       .score-value { flex: 0 0 auto; color: #d7d0ff; font-weight: 800; font-size: .82rem; text-align: right; }
       .score-badge { display: inline-block !important; color: #8df0c0 !important; font-weight: 800; }
       .score-empty { margin: 16px 0 0; }
+      .activity-history { margin-top: 20px; border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: #111522dd; }
+      .activity-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+      .activity-heading h2 { margin: 0; font-size: 1.15rem; }
+      .activity-heading p, .activity-empty { color: var(--muted); font-size: .82rem; }
+      .activity-list { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+      .activity-entry { display: flex; justify-content: space-between; align-items: center; gap: 12px; border: 1px solid #252a3b; border-radius: 12px; padding: 11px 13px; background: #0c0f19; }
+      .activity-entry strong, .activity-entry span { display: block; }
+      .activity-entry strong { font-size: .88rem; }
+      .activity-entry span { margin-top: 4px; color: var(--muted); font-size: .74rem; }
+      .activity-time { flex: 0 0 auto; color: #d7d0ff; font-size: .76rem; text-align: right; }
+      .activity-empty { margin: 16px 0 0; }
       footer { border-top: 1px solid #ffffff12; padding: 22px 0; color: var(--muted); font-size: .8rem; }
       .footer { display: flex; justify-content: space-between; gap: 20px; }
       .footer a:hover { color: #fff; }
-      @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      @media (max-width: 540px) { .wrap { width: min(100% - 28px, 1120px); } .hero { padding-top: 62px; } .toolbar { align-items: flex-start; flex-direction: column; } .grid { grid-template-columns: 1fr; } .footer { flex-direction: column; gap: 8px; } }
+      @media (max-width: 760px) { .grid, .section-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 540px) { .wrap { width: min(100% - 28px, 1120px); } .hero { padding-top: 62px; } .nav { align-items: flex-start; flex-direction: column; justify-content: center; gap: 8px; padding: 14px 0; } .nav-links { gap: 14px; } .toolbar { align-items: flex-start; flex-direction: column; } .grid, .section-grid { grid-template-columns: 1fr; } .footer { flex-direction: column; gap: 8px; } .score-heading, .activity-heading { align-items: flex-start; flex-direction: column; } }
     </style>
   </head>
   <body>
     <header>
       <div class="wrap nav">
         <a class="brand" href="./" aria-label="SurgeAI home">SURGE<span>AI</span></a>
-        <span class="nav-note">Apps & games, ready to explore</span>
+        <nav class="nav-links" aria-label="Site sections">
+          <a href="./?category=app#catalog">Apps &amp; tools</a>
+          <a href="./?category=game#catalog">Games</a>
+          <a href="./mythology/">Mythology &amp; astrology</a>
+        </nav>
       </div>
     </header>
     <section class="hero wrap">
-      <span class="eyebrow">Discover something new</span>
-      <h1>Made to play.<br />Built to move.</h1>
-      <p>A growing collection of apps and games from SurgeAI. Find your next download below.</p>
+      <span class="eyebrow">One home, many interests</span>
+      <h1>Explore your<br />next idea.</h1>
+      <p>Browse practical tools, animated games, and a growing guide to mythology, astrology, and cultural traditions—all in one place.</p>
     </section>
     <main class="wrap">
+      <section class="sections" aria-labelledby="sections-title">
+        <h2 id="sections-title">Explore sections</h2>
+        <div class="section-grid">
+          <a class="section-card" href="./?category=app#catalog">
+            <strong>Apps &amp; tools</strong>
+            <span>Everyday calculators, converters, mapping, and device tools.</span>
+            <em>Explore apps →</em>
+          </a>
+          <a class="section-card" href="./?category=game#catalog">
+            <strong>Games</strong>
+            <span>Quick challenges, action games, and business strategy.</span>
+            <em>Play games →</em>
+          </a>
+          <a class="section-card" href="./mythology/">
+            <strong>Mythology &amp; astrology</strong>
+            <span>Read original epic stories, explore traditions, and try a private symbolic reflection.</span>
+            <em>Explore the guide →</em>
+          </a>
+        </div>
+      </section>
       <div class="toolbar">
         <h2>Explore the collection</h2>
         <div class="filters" aria-label="Filter catalog">
@@ -109,6 +153,14 @@
         <ol class="score-list" id="recent-scores" aria-live="polite"></ol>
         <p class="score-empty" id="score-empty">Finish a game to see your recent scores here.</p>
       </section>
+      <section class="activity-history" aria-labelledby="activity-title">
+        <div class="activity-heading">
+          <h2 id="activity-title">Recent app activity</h2>
+          <p>Last 15 activities · kept for 7 days on this device</p>
+        </div>
+        <ol class="activity-list" id="recent-activity" aria-live="polite"></ol>
+        <p class="activity-empty" id="activity-empty">Use an app to see recent activity here.</p>
+      </section>
     </main>
     <footer>
       <div class="wrap footer">
@@ -116,6 +168,6 @@
         <a href="https://github.com/EmperorAsy/surgeai/releases">Get the releases</a>
       </div>
     </footer>
-    <script src="./app.js?v=20261110-rewards-3" defer></script>
+    <script src="./app.js?v=20261110-sections-1" defer></script>
   </body>
 </html>

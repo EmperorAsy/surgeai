@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111522" />
+    <meta name="description" content="Convert length, height, area, mass, weight, volume, and temperature units." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'" />
+    <link rel="canonical" href="https://surgeai.si/apps/measurement-converter/" />
+    <link rel="stylesheet" href="../../tools.css?v=20261110-sections-1" />
+    <link rel="stylesheet" href="../../theme.css?v=20261110-sections-1" />
+    <title>Measurement Converter — SurgeAI</title>
+  </head>
+  <body data-app="measurement-converter">
+    <header><div class="wrap nav"><a class="brand" href="../../?v=20261110-sections-1">SURGE<span>AI</span></a><a class="back" href="../../?v=20261110-sections-1">← Apps & games</a></div></header>
+    <main class="tool-main">
+      <div class="tool-heading"><span class="eyebrow">Unit converter</span><h1>Measurement Converter</h1><p>Convert everyday measurements, including height, area, mass and weight force, volume, and temperature. Calculations stay in your browser.</p></div>
+      <section class="tool-panel" aria-label="Measurement converter">
+        <div class="tool-grid">
+          <div class="tool-field"><label for="category">Measurement</label><select id="category"><option value="length">Length & height</option><option value="area">Area</option><option value="mass">Mass / everyday weight</option><option value="force">Weight force</option><option value="volume">Volume</option><option value="temperature">Temperature</option></select></div>
+          <div class="tool-field"><label for="value">Value</label><input id="value" type="number" step="any" value="1" inputmode="decimal" /></div>
+          <div class="tool-field"><label for="from-unit">From</label><select id="from-unit"></select></div>
+          <div class="tool-field"><label for="to-unit">To</label><select id="to-unit"></select></div>
+        </div>
+        <div class="tool-result"><span class="tool-result-label">Converted measurement</span><strong id="result" aria-live="polite">—</strong></div>
+        <button class="tool-button" id="save-conversion" type="button" disabled>Save to recent activity</button>
+        <p class="tool-note">Mass is measured in kg/lb; weight force is measured in newtons/lbf. These are different physical quantities.</p>
+      </section>
+    </main>
+    <footer><div class="wrap footer"><span>SurgeAI Tools</span><a class="back" href="../../?v=20261110-sections-1">Back to apps and games</a></div></footer>
+    <script src="../../apps.js?v=20261110-sections-1" defer></script>
+  </body>
+</html>

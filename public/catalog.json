@@ -5,7 +5,7 @@
     "description": "A quick, classic two-player showdown. Take turns and get three marks in a row.",
     "category": "game",
     "platform": "Browser · 2 players",
-    "playUrl": "./games/tic-tac-toe/?v=20261110-rewards-3"
+    "playUrl": "./games/tic-tac-toe/?v=20261110-sections-1"
   },
   {
     "id": "memory-match",
@@ -13,7 +13,7 @@
     "description": "Flip the cards, find all six pairs, and see how few moves your memory needs.",
     "category": "game",
     "platform": "Browser · Solo",
-    "playUrl": "./games/memory-match/?v=20261110-rewards-3"
+    "playUrl": "./games/memory-match/?v=20261110-sections-1"
   },
   {
     "id": "number-rush",
@@ -21,7 +21,7 @@
     "description": "Race the 30-second clock and tap every number from 1 to 25 in order.",
     "category": "game",
     "platform": "Browser · Solo",
-    "playUrl": "./games/number-rush/?v=20261110-rewards-3"
+    "playUrl": "./games/number-rush/?v=20261110-sections-1"
   },
   {
     "id": "meteor-dash",
@@ -29,7 +29,7 @@
     "description": "Pilot a nimble starship, collect glowing energy, and dodge a storm of falling meteors.",
     "category": "game",
     "platform": "Action · Keyboard or touch",
-    "playUrl": "./games/meteor-dash/?v=20261110-rewards-3"
+    "playUrl": "./games/meteor-dash/?v=20261110-sections-1"
   },
   {
     "id": "startup-studio",
@@ -37,7 +37,7 @@
     "description": "Build a startup through eight fast-moving weeks. Balance product, marketing, research, and cash.",
     "category": "game",
     "platform": "Business · Strategy",
-    "playUrl": "./games/startup-studio/?v=20261110-rewards-3"
+    "playUrl": "./games/startup-studio/?v=20261110-sections-1"
   },
   {
     "id": "bubble-pop",
@@ -45,7 +45,7 @@
     "description": "Pop floating bubbles, chain combos, and earn crystals in a colorful 30-second challenge.",
     "category": "game",
     "platform": "Arcade · Mouse or touch",
-    "playUrl": "./games/bubble-pop/?v=20261110-rewards-3"
+    "playUrl": "./games/bubble-pop/?v=20261110-sections-1"
   },
   {
     "id": "garden-glow",
@@ -53,6 +53,46 @@
     "description": "Grow animated flowers, harvest petals, and unlock new seeds in a cozy garden.",
     "category": "game",
     "platform": "Cozy · Grow and collect",
-    "playUrl": "./games/garden-glow/?v=20261110-rewards-3"
+    "playUrl": "./games/garden-glow/?v=20261110-sections-1"
+  },
+  {
+    "id": "currency-converter",
+    "title": "Currency Converter",
+    "description": "Convert 30 currencies with the latest available daily reference rates and a visible rate date.",
+    "category": "app",
+    "platform": "Browser · Updated daily",
+    "appUrl": "./apps/currency-converter/?v=20261110-sections-1"
+  },
+  {
+    "id": "calculator",
+    "title": "Calculator",
+    "description": "A quick, keyboard-friendly calculator for everyday arithmetic and percentages.",
+    "category": "app",
+    "platform": "Browser · Works offline",
+    "appUrl": "./apps/calculator/?v=20261110-sections-1"
+  },
+  {
+    "id": "land-mapper",
+    "title": "Land Mapper",
+    "description": "Draw a plot on a map and estimate its area and perimeter with optional device location.",
+    "category": "app",
+    "platform": "Browser · Map and GPS",
+    "appUrl": "./apps/land-mapper/?v=20261110-sections-1"
+  },
+  {
+    "id": "measurement-converter",
+    "title": "Measurement Converter",
+    "description": "Convert height, length, area, mass, weight force, volume, and temperature.",
+    "category": "app",
+    "platform": "Browser · Unit converter",
+    "appUrl": "./apps/measurement-converter/?v=20261110-sections-1"
+  },
+  {
+    "id": "compass",
+    "title": "Compass",
+    "description": "Find your heading with your device's built-in orientation sensor.",
+    "category": "app",
+    "platform": "Browser · Device sensor",
+    "appUrl": "./apps/compass/?v=20261110-sections-1"
   }
 ]

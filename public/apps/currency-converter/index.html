@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111522" />
+    <meta name="description" content="Convert currencies using the latest available daily reference rates, with the rate date shown." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://api.frankfurter.dev; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'" />
+    <link rel="canonical" href="https://surgeai.si/apps/currency-converter/" />
+    <link rel="stylesheet" href="../../tools.css?v=20261110-sections-1" />
+    <link rel="stylesheet" href="../../theme.css?v=20261110-sections-1" />
+    <title>Currency Converter — SurgeAI</title>
+  </head>
+  <body data-app="currency-converter">
+    <header><div class="wrap nav"><a class="brand" href="../../?v=20261110-sections-1">SURGE<span>AI</span></a><a class="back" href="../../?v=20261110-sections-1">← Apps & games</a></div></header>
+    <main class="tool-main">
+      <div class="tool-heading">
+        <span class="eyebrow">Currency tools</span>
+        <h1>Currency Converter</h1>
+        <p>Convert with the latest available reference rates. Rates are updated by the provider each business day and are not live market quotes.</p>
+      </div>
+      <section class="tool-panel" aria-label="Currency converter">
+        <div class="tool-grid">
+          <div class="tool-field"><label for="amount">Amount</label><input id="amount" type="number" min="0" step="any" value="1" inputmode="decimal" /></div>
+          <div class="tool-field"><label for="base">From</label><select id="base">
+            <option>AUD</option><option>BRL</option><option>CAD</option><option>CHF</option><option>CNY</option><option>CZK</option><option>DKK</option><option selected>EUR</option><option>GBP</option><option>HKD</option><option>HUF</option><option>IDR</option><option>ILS</option><option>INR</option><option>ISK</option><option>JPY</option><option>KRW</option><option>MXN</option><option>MYR</option><option>NOK</option><option>NZD</option><option>PHP</option><option>PLN</option><option>RON</option><option>SEK</option><option>SGD</option><option>THB</option><option>TRY</option><option>USD</option><option>ZAR</option>
+          </select></div>
+          <div class="tool-field"><label for="quote">To</label><select id="quote">
+            <option>AUD</option><option>BRL</option><option>CAD</option><option>CHF</option><option>CNY</option><option>CZK</option><option>DKK</option><option>EUR</option><option>GBP</option><option>HKD</option><option>HUF</option><option>IDR</option><option>ILS</option><option>INR</option><option>ISK</option><option>JPY</option><option>KRW</option><option>MXN</option><option>MYR</option><option>NOK</option><option>NZD</option><option>PHP</option><option>PLN</option><option>RON</option><option>SEK</option><option>SGD</option><option>THB</option><option>TRY</option><option selected>USD</option><option>ZAR</option>
+          </select></div>
+        </div>
+        <div class="tool-result"><span class="tool-result-label">Converted amount</span><strong id="converted" aria-live="polite">—</strong></div>
+        <p id="rate" class="tool-note">Loading reference rate…</p>
+        <p id="status" class="tool-status" aria-live="polite">Connecting to the rate provider…</p>
+        <div class="tool-actions">
+          <button class="tool-button" id="refresh" type="button">Refresh rate</button>
+          <button class="tool-button secondary" id="save-conversion" type="button" disabled>Save to recent activity</button>
+        </div>
+        <p class="tool-note">Reference rates are for information only and may differ from rates offered by banks or payment services.</p>
+      </section>
+    </main>
+    <footer><div class="wrap footer"><span>SurgeAI Tools</span><a class="back" href="../../?v=20261110-sections-1">Back to apps and games</a></div></footer>
+    <script src="../../apps.js?v=20261110-sections-1" defer></script>
+  </body>
+</html>

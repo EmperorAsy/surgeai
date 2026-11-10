@@ -1,6 +1,11 @@
 const catalog = document.querySelector("#catalog");
 let items = [];
-let activeFilter = "all";
+const requestedFilter = new URLSearchParams(location.search).get("category");
+let activeFilter = ["app", "game"].includes(requestedFilter) ? requestedFilter : "all";
+
+document.querySelectorAll(".filter").forEach((button) => {
+  button.setAttribute("aria-pressed", String(button.dataset.filter === activeFilter));
+});
 
 function renderCatalog() {
   const visibleItems = items.filter(
@@ -43,14 +48,15 @@ function renderCatalog() {
     description.textContent = item.description;
     const action = document.createElement("a");
     action.className = "download";
-    if (item.playUrl) {
-      const playUrl = new URL(item.playUrl, document.baseURI);
-      const gamePath = new URL("./games/", document.baseURI).pathname;
-      if (playUrl.origin !== location.origin || !playUrl.pathname.startsWith(gamePath)) {
-        throw new Error("Catalog contains an invalid game URL.");
+    if (item.playUrl || item.appUrl) {
+      const isApp = Boolean(item.appUrl);
+      const destination = new URL(item.appUrl || item.playUrl, document.baseURI);
+      const allowedPath = new URL(isApp ? "./apps/" : "./games/", document.baseURI).pathname;
+      if (destination.origin !== location.origin || !destination.pathname.startsWith(allowedPath)) {
+        throw new Error(`Catalog contains an invalid ${isApp ? "app" : "game"} URL.`);
       }
-      action.href = playUrl.href;
-      action.textContent = "Play now";
+      action.href = destination.href;
+      action.textContent = isApp ? "Open app" : "Play now";
     } else {
       const releaseUrl = new URL(item.downloadUrl);
       if (
@@ -76,6 +82,10 @@ document.querySelectorAll(".filter").forEach((button) => {
     document.querySelectorAll(".filter").forEach((filter) => {
       filter.setAttribute("aria-pressed", String(filter === button));
     });
+    const url = new URL(location.href);
+    if (activeFilter === "all") url.searchParams.delete("category");
+    else url.searchParams.set("category", activeFilter);
+    history.replaceState(null, "", url);
     renderCatalog();
   });
 });
@@ -119,7 +129,47 @@ renderRecentScores();
 window.addEventListener("surgeai:scores-updated", renderRecentScores);
 window.addEventListener("pageshow", renderRecentScores);
 
-fetch("./catalog.json?v=20261110-rewards-3")
+function renderRecentActivity() {
+  const activityList = document.querySelector("#recent-activity");
+  const emptyMessage = document.querySelector("#activity-empty");
+  const history = JSON.parse(localStorage.getItem("surgeai-app-activity") || "[]");
+  if (!Array.isArray(history)) throw new Error("Recent app activity is invalid.");
+  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const recent = history.filter((entry) =>
+    entry &&
+    typeof entry.timestamp === "string" &&
+    Date.parse(entry.timestamp) >= cutoff &&
+    typeof entry.title === "string" &&
+    typeof entry.detail === "string",
+  );
+  if (recent.length !== history.length) {
+    localStorage.setItem("surgeai-app-activity", JSON.stringify(recent));
+  }
+  activityList.replaceChildren();
+  emptyMessage.hidden = recent.length > 0;
+
+  for (const activity of recent.slice(0, 15)) {
+    const item = document.createElement("li");
+    item.className = "activity-entry";
+    const details = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = activity.title;
+    const description = document.createElement("span");
+    description.textContent = activity.detail;
+    details.append(title, description);
+    const time = document.createElement("span");
+    time.className = "activity-time";
+    time.textContent = new Date(activity.timestamp).toLocaleString();
+    item.append(details, time);
+    activityList.append(item);
+  }
+}
+
+renderRecentActivity();
+window.addEventListener("surgeai:activity-updated", renderRecentActivity);
+window.addEventListener("pageshow", renderRecentActivity);
+
+fetch("./catalog.json?v=20261110-sections-1")
   .then((response) => {
     if (!response.ok) throw new Error("Catalog request failed.");
     return response.json();

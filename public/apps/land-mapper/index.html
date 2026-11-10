@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111522" />
+    <meta name="description" content="Map a land plot, draw its boundary, and estimate area and perimeter in your browser." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests" />
+    <link rel="canonical" href="https://surgeai.si/apps/land-mapper/" />
+    <link rel="stylesheet" href="../../vendor/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="../../tools.css?v=20261110-sections-1" />
+    <link rel="stylesheet" href="../../theme.css?v=20261110-sections-1" />
+    <title>Land Mapper — SurgeAI</title>
+  </head>
+  <body data-app="land-mapper">
+    <header><div class="wrap nav"><a class="brand" href="../../?v=20261110-sections-1">SURGE<span>AI</span></a><a class="back" href="../../?v=20261110-sections-1">← Apps & games</a></div></header>
+    <main class="tool-main">
+      <div class="tool-heading"><span class="eyebrow">Map and measure</span><h1>Land Mapper</h1><p>Center the map on your location or browse manually, then click at least three plot corners to estimate area and perimeter.</p></div>
+      <section class="tool-panel" aria-label="Land mapping tool">
+        <div class="tool-actions">
+          <button class="tool-button" id="locate" type="button">Use my location</button>
+          <button class="tool-button" id="finish" type="button">Close boundary</button>
+          <button class="tool-button" id="clear" type="button">Clear plot</button>
+          <label class="tool-field" for="area-unit"><span>Area unit</span><select id="area-unit"><option value="m2">Square metres</option><option value="ha">Hectares</option><option value="acre">Acres</option></select></label>
+        </div>
+        <div class="map-canvas" id="map" role="application" aria-label="Interactive map; click to add land plot corners"></div>
+        <div class="map-stats">
+          <div class="map-stat"><span>Plot area</span><strong id="area">Add at least 3 corners</strong></div>
+          <div class="map-stat"><span>Perimeter</span><strong id="perimeter">—</strong></div>
+          <div class="map-stat"><span>Boundary points</span><strong id="point-count">0 corners</strong></div>
+        </div>
+        <p class="tool-status" id="status" aria-live="polite">Click the map to add plot corners. Measurements are calculated in your browser.</p>
+        <p class="tool-note">This is an approximate planning tool, not a legal survey. Location is used only to center your map. Map tiles are provided by OpenStreetMap; an internet connection is required.</p>
+      </section>
+    </main>
+    <footer><div class="wrap footer"><span>SurgeAI Tools</span><a class="back" href="../../?v=20261110-sections-1">Back to apps and games</a></div></footer>
+    <script src="../../vendor/leaflet/leaflet.js"></script>
+    <script src="../../apps.js?v=20261110-sections-1" defer></script>
+  </body>
+</html>

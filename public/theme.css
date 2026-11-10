@@ -1,0 +1,42 @@
+:root {
+  color-scheme: dark;
+  --muted: #9da5ba;
+  --line: #252a3b;
+  --accent: #9a8cff;
+  --panel: #111522;
+}
+
+body {
+  color: #f5f6fb !important;
+  background: radial-gradient(ellipse at 50% -20%, #28204f 0, transparent 55%), #090b12 !important;
+}
+
+header, footer { border-color: #ffffff12 !important; }
+.brand span, .eyebrow { color: #c4bbff !important; }
+.nav-note, .back, .hero p, .intro, .tool-heading p, .tool-note { color: #9da5ba !important; }
+h1, .card h3 { color: #f5f6fb; }
+.tool-panel, .panel { border-color: #252a3b !important; background: #111522e8 !important; }
+.tool-field label { color: #d7d0ff !important; }
+.tool-field input, .tool-field select, .tool-field output,
+.calculator-display { border-color: #37334f !important; background: #0c0f19 !important; color: #f5f6fb !important; }
+.tool-result { border-color: #574e82 !important; background: #1d1a31 !important; }
+.tool-result strong, .compass-heading { color: #c4bbff !important; }
+.tool-button { border-color: #9a8cff !important; background: #9a8cff !important; color: #100d20 !important; }
+.tool-button:hover:not(:disabled) { background: #b0a7ff !important; }
+.tool-button.secondary { border-color: #37334f !important; background: #1c1b2b !important; color: #e4dfff !important; }
+.tool-button:disabled { filter: saturate(.5); }
+.calc-key { border-color: #37334f !important; background: #1c1b2b !important; color: #f5f6fb !important; }
+.calc-key.operator { background: #2c2448 !important; color: #c4bbff !important; }
+.calc-key.equals { background: #9a8cff !important; color: #100d20 !important; }
+.map-canvas { border-color: #37334f !important; }
+.map-stat { border-color: #252a3b !important; background: #0c0f19 !important; }
+.map-stat strong { color: #c4bbff !important; }
+.compass-dial { border-color: #9a8cff !important; background: radial-gradient(circle, #231d3d 0 58%, #14131a 59%) !important; box-shadow: inset 0 0 28px #9a8cff22, 0 0 28px #9a8cff22 !important; }
+.compass-dial::before { border-color: #c4bbff55 !important; }
+.compass-mark { color: #e4dfff !important; }
+.score-entry, .stat { border-color: #252a3b !important; background: #0c0f19 !important; }
+.stat span { color: #9da5ba !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

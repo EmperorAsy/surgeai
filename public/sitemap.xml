@@ -4,6 +4,12 @@
     <loc>https://surgeai.si/</loc>
   </url>
   <url>
+    <loc>https://surgeai.si/mythology/</loc>
+  </url>
+  <url>
+    <loc>https://surgeai.si/mythology/stories/</loc>
+  </url>
+  <url>
     <loc>https://surgeai.si/games/tic-tac-toe/</loc>
   </url>
   <url>
@@ -23,5 +29,20 @@
   </url>
   <url>
     <loc>https://surgeai.si/games/garden-glow/</loc>
+  </url>
+  <url>
+    <loc>https://surgeai.si/apps/currency-converter/</loc>
+  </url>
+  <url>
+    <loc>https://surgeai.si/apps/calculator/</loc>
+  </url>
+  <url>
+    <loc>https://surgeai.si/apps/land-mapper/</loc>
+  </url>
+  <url>
+    <loc>https://surgeai.si/apps/measurement-converter/</loc>
+  </url>
+  <url>
+    <loc>https://surgeai.si/apps/compass/</loc>
   </url>
 </urlset>
