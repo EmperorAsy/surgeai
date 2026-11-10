@@ -1,0 +1,17 @@
+{
+  "entries": [
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:surgeai.si:catalog",
+      "displayName": "SurgeAI Apps and Games Catalog",
+      "type": "application/ai-catalog+json",
+      "url": "https://surgeai.si/catalog.json",
+      "description": "A public catalog of apps and games available to download from SurgeAI.",
+      "representativeQueries": [
+        "Find apps and games published by SurgeAI",
+        "Browse downloadable games and applications"
+      ],
+      "tags": ["apps", "games", "downloads"]
+    }
+  ]
+}

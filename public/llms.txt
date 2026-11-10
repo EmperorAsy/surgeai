@@ -1,0 +1,10 @@
+# SurgeAI
+
+> SurgeAI is a public catalog of apps and games distributed through GitHub Releases.
+
+## Resources
+
+- [SurgeAI website](https://surgeai.si/): Browse the app and game catalog.
+- [App and game catalog](https://surgeai.si/catalog.json): Static JSON catalog with release download URLs.
+- [GitHub Releases](https://github.com/EmperorAsy/surgeai/releases): Download published app and game files.
+- [Source repository](https://github.com/EmperorAsy/surgeai): Website source and publishing instructions.

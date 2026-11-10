@@ -32,5 +32,7 @@ The `downloadUrl` must be a GitHub Releases asset URL. Set `size` to the asset s
 - GitHub Pages site: `https://emperorasy.github.io/surgeai/`.
 - GitHub Actions deploys the `public` folder to GitHub Pages when changes are pushed to `main`.
 - To use `surgeai.si`, connect the domain to the SurgeAI Cloudflare Pages project in Cloudflare's Pages custom-domain settings. Do not connect `amansinghyadav.in` to this project.
+- Cloudflare Pages applies the security headers in `public/_headers`. GitHub Pages uses the in-document Content Security Policy, but static GitHub Pages cannot configure response headers such as HSTS or COOP.
+- `robots.txt`, `sitemap.xml`, `llms.txt`, and `/.well-known/ard.json` provide search-engine and agent discovery metadata.
 
 GitHub documents release assets as limited to under 2 GiB per file, with no total release-size or bandwidth limit. This design avoids R2 charges. Do not enable paid Git LFS or other paid storage add-ons for this repository.
