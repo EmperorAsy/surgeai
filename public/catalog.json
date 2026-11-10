@@ -5,7 +5,7 @@
     "description": "A quick, classic two-player showdown. Take turns and get three marks in a row.",
     "category": "game",
     "platform": "Browser · 2 players",
-    "playUrl": "./games/tic-tac-toe/"
+    "playUrl": "./games/tic-tac-toe/?v=20261110-rewards-3"
   },
   {
     "id": "memory-match",
@@ -13,7 +13,7 @@
     "description": "Flip the cards, find all six pairs, and see how few moves your memory needs.",
     "category": "game",
     "platform": "Browser · Solo",
-    "playUrl": "./games/memory-match/"
+    "playUrl": "./games/memory-match/?v=20261110-rewards-3"
   },
   {
     "id": "number-rush",
@@ -21,7 +21,7 @@
     "description": "Race the 30-second clock and tap every number from 1 to 25 in order.",
     "category": "game",
     "platform": "Browser · Solo",
-    "playUrl": "./games/number-rush/"
+    "playUrl": "./games/number-rush/?v=20261110-rewards-3"
   },
   {
     "id": "meteor-dash",
@@ -29,7 +29,7 @@
     "description": "Pilot a nimble starship, collect glowing energy, and dodge a storm of falling meteors.",
     "category": "game",
     "platform": "Action · Keyboard or touch",
-    "playUrl": "./games/meteor-dash/"
+    "playUrl": "./games/meteor-dash/?v=20261110-rewards-3"
   },
   {
     "id": "startup-studio",
@@ -37,7 +37,7 @@
     "description": "Build a startup through eight fast-moving weeks. Balance product, marketing, research, and cash.",
     "category": "game",
     "platform": "Business · Strategy",
-    "playUrl": "./games/startup-studio/"
+    "playUrl": "./games/startup-studio/?v=20261110-rewards-3"
   },
   {
     "id": "bubble-pop",
@@ -45,7 +45,7 @@
     "description": "Pop floating bubbles, chain combos, and earn crystals in a colorful 30-second challenge.",
     "category": "game",
     "platform": "Arcade · Mouse or touch",
-    "playUrl": "./games/bubble-pop/"
+    "playUrl": "./games/bubble-pop/?v=20261110-rewards-3"
   },
   {
     "id": "garden-glow",
@@ -53,6 +53,6 @@
     "description": "Grow animated flowers, harvest petals, and unlock new seeds in a cozy garden.",
     "category": "game",
     "platform": "Cozy · Grow and collect",
-    "playUrl": "./games/garden-glow/"
+    "playUrl": "./games/garden-glow/?v=20261110-rewards-3"
   }
 ]

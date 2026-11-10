@@ -119,7 +119,7 @@ renderRecentScores();
 window.addEventListener("surgeai:scores-updated", renderRecentScores);
 window.addEventListener("pageshow", renderRecentScores);
 
-fetch("./catalog.json?v=20261110-rewards-2")
+fetch("./catalog.json?v=20261110-rewards-3")
   .then((response) => {
     if (!response.ok) throw new Error("Catalog request failed.");
     return response.json();
