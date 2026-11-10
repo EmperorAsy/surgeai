@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://surgeai.si/sitemap.xml
-Agentmap: https://surgeai.si/.well-known/ard.json
