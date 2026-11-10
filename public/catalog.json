@@ -38,5 +38,21 @@
     "category": "game",
     "platform": "Business · Strategy",
     "playUrl": "./games/startup-studio/"
+  },
+  {
+    "id": "bubble-pop",
+    "title": "Bubble Pop",
+    "description": "Pop floating bubbles, chain combos, and earn crystals in a colorful 30-second challenge.",
+    "category": "game",
+    "platform": "Arcade · Mouse or touch",
+    "playUrl": "./games/bubble-pop/"
+  },
+  {
+    "id": "garden-glow",
+    "title": "Garden Glow",
+    "description": "Grow animated flowers, harvest petals, and unlock new seeds in a cozy garden.",
+    "category": "game",
+    "platform": "Cozy · Grow and collect",
+    "playUrl": "./games/garden-glow/"
   }
 ]

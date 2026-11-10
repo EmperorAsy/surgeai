@@ -7,6 +7,76 @@ function shuffle(values) {
   return shuffled;
 }
 
+const recentScoresKey = "surgeai-recent-scores";
+let resultPopupTimer = null;
+
+function recordGameResult(game, title, outcome, score, scoreLabel) {
+  const history = JSON.parse(localStorage.getItem(recentScoresKey) || "[]");
+  if (!Array.isArray(history)) throw new Error("Recent game scores are invalid.");
+  const previousBest = history
+    .filter((entry) => entry.game === game && Number.isFinite(entry.score))
+    .reduce((best, entry) => Math.max(best, entry.score), Number.NEGATIVE_INFINITY);
+  const result = {
+    game,
+    title,
+    outcome,
+    score,
+    scoreLabel,
+    highScore: outcome !== "Draw" && score > Math.max(0, previousBest),
+    playedAt: new Date().toISOString(),
+  };
+  history.unshift(result);
+  localStorage.setItem(recentScoresKey, JSON.stringify(history.slice(0, 15)));
+  window.dispatchEvent(new CustomEvent("surgeai:scores-updated"));
+  return result;
+}
+
+function showResultPopup(outcome, title, message) {
+  let popup = document.querySelector("#game-result");
+  if (!popup) {
+    popup = document.createElement("section");
+    popup.className = "game-result";
+    popup.id = "game-result";
+    popup.setAttribute("role", "status");
+    popup.setAttribute("aria-live", "assertive");
+    popup.setAttribute("aria-atomic", "true");
+    const heading = document.createElement("h2");
+    const description = document.createElement("p");
+    const close = document.createElement("button");
+    close.type = "button";
+    close.textContent = "Close";
+    close.setAttribute("aria-label", "Close game result");
+    close.addEventListener("click", () => {
+      window.clearTimeout(resultPopupTimer);
+      popup.hidden = true;
+      popup.classList.remove("is-visible");
+    });
+    popup.append(heading, description, close);
+    document.body.append(popup);
+  }
+  window.clearTimeout(resultPopupTimer);
+  popup.dataset.outcome = outcome;
+  popup.querySelector("h2").textContent = title;
+  popup.querySelector("p").textContent = message;
+  popup.hidden = false;
+  popup.classList.remove("is-visible");
+  void popup.offsetWidth;
+  popup.classList.add("is-visible");
+  resultPopupTimer = window.setTimeout(() => {
+    popup.hidden = true;
+    popup.classList.remove("is-visible");
+  }, 8000);
+}
+
+function animateGameElement(element, animationClass) {
+  element.classList.remove(animationClass);
+  void element.offsetWidth;
+  element.classList.add(animationClass);
+  element.addEventListener("animationend", () => {
+    element.classList.remove(animationClass);
+  }, { once: true });
+}
+
 function setupTicTacToe() {
   const board = document.querySelector("#board");
   const status = document.querySelector("#status");
@@ -27,6 +97,7 @@ function setupTicTacToe() {
     status.textContent = "X goes first";
     for (const cell of cells) {
       cell.textContent = "";
+      cell.classList.remove("mark-pop", "line-win");
       cell.disabled = false;
       cell.setAttribute("aria-label", `Square ${Number(cell.dataset.cell) + 1}, empty`);
     }
@@ -39,15 +110,22 @@ function setupTicTacToe() {
 
       marks[index] = current;
       cell.textContent = current;
+      animateGameElement(cell, "mark-pop");
       cell.setAttribute("aria-label", `Square ${index + 1}, ${current}`);
 
-      if (winningLines.some((line) => line.every((square) => marks[square] === current))) {
+      const winningLine = winningLines.find((line) => line.every((square) => marks[square] === current));
+      if (winningLine) {
         finished = true;
         status.textContent = `${current} wins! Start a new game?`;
+        for (const square of winningLine) cells[square].classList.add("line-win");
         for (const square of cells) square.disabled = true;
+        const result = recordGameResult("tic-tac-toe", "Tic-Tac-Toe", "Win", 1, `${current} wins`);
+        showResultPopup("win", `${current} wins!`, result.highScore ? "New high score in your recent games!" : "Three in a row! Start another round?");
       } else if (marks.every(Boolean)) {
         finished = true;
         status.textContent = "It's a draw! Start a new game?";
+        const result = recordGameResult("tic-tac-toe", "Tic-Tac-Toe", "Draw", 0, "Draw");
+        showResultPopup("draw", "It's a draw!", result.highScore ? "A new best result in your recent games." : "Nobody took the board this time.");
       } else {
         current = current === "X" ? "O" : "X";
         status.textContent = `${current}'s turn`;
@@ -94,6 +172,7 @@ function setupMemoryMatch() {
       card.addEventListener("click", () => {
         if (locked || card.dataset.revealed === "true") return;
         card.textContent = symbol;
+        animateGameElement(card, "flip-pop");
         card.dataset.revealed = "true";
         card.setAttribute("aria-label", `Card ${symbol}`);
         card.setAttribute("aria-pressed", "true");
@@ -108,12 +187,19 @@ function setupMemoryMatch() {
         if (first.dataset.symbol === card.dataset.symbol) {
           first.classList.add("matched");
           card.classList.add("matched");
+          first.classList.add("match-pop");
+          card.classList.add("match-pop");
           first.disabled = true;
           card.disabled = true;
           first = null;
           pairs += 1;
           pairsLabel.textContent = `Pairs: ${pairs} / 6`;
-          if (pairs === 6) status.textContent = `You found every pair in ${moves} moves!`;
+          if (pairs === 6) {
+            const score = Math.max(1, 100 - Math.max(0, moves - 6) * 8);
+            status.textContent = `You found every pair in ${moves} moves!`;
+            const result = recordGameResult("memory-match", "Memory Match", "Win", score, `${score} points · ${moves} moves`);
+            showResultPopup("win", "All pairs found!", `${moves} moves · ${score} points${result.highScore ? " · New high score!" : ""}`);
+          }
         } else {
           locked = true;
           const previous = first;
@@ -151,13 +237,27 @@ function setupNumberRush() {
   let running = false;
   let timer = null;
 
-  function finish(message) {
+  function finish(message, outcome) {
     running = false;
     window.clearInterval(timer);
     timer = null;
     status.textContent = message;
     startButton.disabled = false;
     startButton.textContent = "Play again";
+    const cleared = outcome === "win";
+    const score = target - 1;
+    const result = recordGameResult(
+      "number-rush",
+      "Number Rush",
+      cleared ? "Win" : "Time up",
+      score,
+      `${score} numbers`,
+    );
+    showResultPopup(
+      cleared ? "win" : "lose",
+      cleared ? "Board cleared!" : "Time is up!",
+      `${score} numbers in order${result.highScore ? " · New high score!" : ""}`,
+    );
   }
 
   for (const number of numbers) {
@@ -170,14 +270,16 @@ function setupNumberRush() {
       if (!running) return;
       if (number !== target) {
         status.textContent = `Find ${target} next.`;
+        animateGameElement(button, "wrong-pop");
         return;
       }
       button.disabled = true;
       button.classList.add("done");
+      animateGameElement(button, "number-pop");
       target += 1;
       targetLabel.textContent = target <= 25 ? `Next: ${target}` : "Complete!";
       status.textContent = target <= 25 ? "Nice! Keep going." : "Amazing! You cleared the board!";
-      if (target > 25) finish("Amazing! You cleared the board!");
+      if (target > 25) finish("Amazing! You cleared the board!", "win");
     });
     board.append(button);
   }
@@ -199,7 +301,7 @@ function setupNumberRush() {
     timer = window.setInterval(() => {
       seconds -= 1;
       timerLabel.textContent = `Time: ${seconds}s`;
-      if (seconds <= 0) finish(`Time's up! You reached ${target - 1}.`);
+      if (seconds <= 0) finish(`Time's up! You reached ${target - 1}.`, "lose");
     }, 1000);
   });
 }
@@ -304,6 +406,8 @@ function setupMeteorDash() {
     status.textContent = message;
     startButton.disabled = false;
     startButton.textContent = "Fly again";
+    const result = recordGameResult("meteor-dash", "Meteor Dash", "Flight over", score, `${score} energy`);
+    showResultPopup("lose", "Flight over!", `${score} energy collected${result.highScore ? " · New high score!" : ""}`);
     draw();
   }
 
@@ -347,6 +451,8 @@ function setupMeteorDash() {
       meteor.x += meteor.drift * delta;
       meteor.y += meteor.speed * delta;
       if (Math.hypot(meteor.x - player.x, meteor.y - player.y) < meteor.radius + player.radius * .68) {
+        canvas.classList.add("screen-shake");
+        window.setTimeout(() => canvas.classList.remove("screen-shake"), 300);
         endGame(`Meteor hit! Final score: ${score}`);
         return;
       }
@@ -359,6 +465,8 @@ function setupMeteorDash() {
         orb.collected = true;
         score += 10;
         scoreLabel.textContent = `Energy: ${score}`;
+        canvas.classList.add("collect-flash");
+        window.setTimeout(() => canvas.classList.remove("collect-flash"), 240);
       }
     }
     energy = energy.filter((orb) => !orb.collected && orb.y < height + 16);
@@ -463,10 +571,23 @@ function setupStartupStudio() {
     status.textContent = message;
     status.classList.toggle("success", success);
     for (const button of actionButtons) button.disabled = true;
+    const result = recordGameResult(
+      "startup-studio",
+      "Startup Studio",
+      success ? "Win" : "Business closed",
+      cash,
+      `$${cash.toLocaleString()} cash`,
+    );
+    showResultPopup(
+      success ? "win" : "lose",
+      success ? "Launch success!" : "Business closed",
+      `${message}${result.highScore ? " · New high score!" : ""}`,
+    );
   }
 
   function takeAction(action) {
     if (ended) return;
+    animateGameElement(actionButtons.find((button) => button.dataset.action === action), "feedback-pop");
     let cost = 0;
     let report = "";
 
@@ -512,6 +633,7 @@ function setupStartupStudio() {
     cash += revenue;
     demandLabel.textContent = `Market pulse: ${marketMood > 1.04 ? "strong" : marketMood < .92 ? "quiet" : "steady"}`;
     update();
+    animateGameElement(cashLabel, "feedback-pop");
     week += 1;
     status.textContent = `${report} Week ${week - 1}: ${sales} sales brought in $${revenue.toLocaleString()}.`;
 
@@ -560,9 +682,236 @@ function setupStartupStudio() {
   update();
 }
 
+function setupBubblePop() {
+  const arena = document.querySelector("#arena");
+  const status = document.querySelector("#status");
+  const scoreLabel = document.querySelector("#score");
+  const timeLabel = document.querySelector("#time");
+  const comboLabel = document.querySelector("#combo");
+  const crystalsLabel = document.querySelector("#crystals");
+  const startButton = document.querySelector("#start");
+  const bestKey = "surgeai-bubble-pop-best";
+  const crystalsKey = "surgeai-bubble-pop-crystals";
+  let score = 0;
+  let seconds = 30;
+  let combo = 0;
+  let lastPop = 0;
+  let running = false;
+  let timer = null;
+  let spawner = null;
+
+  function readBest() {
+    return Math.max(0, Number(localStorage.getItem(bestKey)) || 0);
+  }
+
+  function readCrystals() {
+    return Math.max(0, Number(localStorage.getItem(crystalsKey)) || 0);
+  }
+
+  function updateScore() {
+    scoreLabel.textContent = `Score: ${score}`;
+    comboLabel.textContent = `Combo: ${combo}`;
+  }
+
+  function spawnBubble() {
+    if (!running) return;
+    const bubbles = arena.querySelectorAll(".bubble");
+    if (bubbles.length >= 14) bubbles[0].remove();
+
+    const golden = Math.random() < .16;
+    const bubble = document.createElement("button");
+    bubble.type = "button";
+    bubble.className = golden ? "bubble golden" : "bubble";
+    bubble.style.left = `${5 + Math.random() * 70}%`;
+    bubble.style.top = `${8 + Math.random() * 72}%`;
+    bubble.style.setProperty("--float", `${24 + Math.random() * 48}px`);
+    bubble.style.setProperty("--duration", `${3.2 + Math.random() * 2.8}s`);
+    bubble.setAttribute("aria-label", golden ? "Pop golden bubble for 5 points" : "Pop bubble for 1 point");
+    bubble.addEventListener("click", () => {
+      if (!running) return;
+      const now = performance.now();
+      combo = now - lastPop < 1700 ? combo + 1 : 1;
+      lastPop = now;
+      score += golden ? 5 : 1;
+      if (combo > 0 && combo % 5 === 0) {
+        score += 3;
+        status.textContent = `Amazing ${combo} bubble combo! Bonus +3 points.`;
+      } else {
+        status.textContent = golden ? "Golden bubble! +5 points." : "Nice pop!";
+      }
+      updateScore();
+      const sparkle = document.createElement("span");
+      sparkle.className = "sparkle";
+      sparkle.textContent = golden ? "✦ +5" : "✦";
+      sparkle.style.left = bubble.style.left;
+      sparkle.style.top = bubble.style.top;
+      arena.append(sparkle);
+      window.setTimeout(() => sparkle.remove(), 800);
+      bubble.remove();
+    });
+    arena.append(bubble);
+  }
+
+  function finish() {
+    running = false;
+    window.clearInterval(timer);
+    window.clearInterval(spawner);
+    timer = null;
+    spawner = null;
+    for (const bubble of arena.querySelectorAll(".bubble")) bubble.disabled = true;
+    const crystals = Math.floor(score / 10);
+    const totalCrystals = readCrystals() + crystals;
+    localStorage.setItem(crystalsKey, String(totalCrystals));
+    const best = Math.max(readBest(), score);
+    localStorage.setItem(bestKey, String(best));
+    crystalsLabel.textContent = `Crystals: ${totalCrystals}`;
+    document.querySelector("#best").textContent = `Best: ${best}`;
+    status.textContent = `Time! You earned ${crystals} crystals. Play again to beat your best!`;
+    startButton.disabled = false;
+    startButton.textContent = "Play again";
+    const result = recordGameResult("bubble-pop", "Bubble Pop", "Round complete", score, `${score} points · ${crystals} crystals`);
+    showResultPopup(
+      "complete",
+      "Round complete!",
+      `${score} points · ${crystals} crystals${result.highScore ? " · New high score!" : ""}`,
+    );
+  }
+
+  function startGame() {
+    window.clearInterval(timer);
+    window.clearInterval(spawner);
+    arena.replaceChildren();
+    score = 0;
+    seconds = 30;
+    combo = 0;
+    lastPop = 0;
+    running = true;
+    updateScore();
+    timeLabel.textContent = "Time: 30s";
+    status.textContent = "Pop the bubbles! Golden bubbles are worth 5.";
+    startButton.disabled = true;
+    startButton.textContent = "Popping…";
+    spawnBubble();
+    spawner = window.setInterval(spawnBubble, 620);
+    timer = window.setInterval(() => {
+      seconds -= 1;
+      timeLabel.textContent = `Time: ${seconds}s`;
+      if (seconds <= 0) finish();
+    }, 1000);
+  }
+
+  startButton.addEventListener("click", startGame);
+  document.querySelector("#best").textContent = `Best: ${readBest()}`;
+  crystalsLabel.textContent = `Crystals: ${readCrystals()}`;
+}
+
+function setupGardenGlow() {
+  const plant = document.querySelector("#plant");
+  const progress = document.querySelector("#progress");
+  const progressLabel = document.querySelector("#progress-label");
+  const status = document.querySelector("#status");
+  const coinsLabel = document.querySelector("#coins");
+  const waterButton = document.querySelector("#water");
+  const harvestButton = document.querySelector("#harvest");
+  const harvestsLabel = document.querySelector("#harvests");
+  const coinKey = "surgeai-garden-glow-coins";
+  const unlockedKey = "surgeai-garden-glow-seeds";
+  const harvestKey = "surgeai-garden-glow-harvests";
+  const flowers = [
+    { id: "sunflower", name: "Sunflower", emoji: "🌻", cost: 0 },
+    { id: "moonflower", name: "Moonflower", emoji: "🌸", cost: 20 },
+    { id: "starflower", name: "Starflower", emoji: "🌟", cost: 35 },
+  ];
+  const flowerButtons = [...document.querySelectorAll("[data-seed]")];
+  const unlocked = new Set(
+    (localStorage.getItem(unlockedKey) || "sunflower").split(","),
+  );
+  let coins = Math.max(0, Number(localStorage.getItem(coinKey)) || 0);
+  let growth = 0;
+  let harvests = Math.max(0, Number(localStorage.getItem(harvestKey)) || 0);
+  let selected = "sunflower";
+
+  function update() {
+    const flower = flowers.find((item) => item.id === selected);
+    const stage = growth >= 100 ? 3 : Math.floor(growth / 25);
+    const stageEmoji = stage === 0 ? "🌱" : stage === 1 ? "🌿" : stage === 2 ? "🪴" : flower.emoji;
+    plant.textContent = stageEmoji;
+    plant.dataset.stage = String(stage);
+    plant.dataset.flower = selected;
+    progress.value = growth;
+    progressLabel.textContent = growth === 100 ? "Blooming!" : `${growth}% grown`;
+    coinsLabel.textContent = `Petals: ${coins}`;
+    harvestsLabel.textContent = `Blooms: ${harvests}`;
+    waterButton.disabled = growth >= 100;
+    harvestButton.disabled = growth < 100;
+
+    for (const button of flowerButtons) {
+      const seed = flowers.find((item) => item.id === button.dataset.seed);
+      const isUnlocked = unlocked.has(seed.id);
+      button.textContent = isUnlocked
+        ? `${seed.emoji} ${seed.name}${selected === seed.id ? " · Selected" : ""}`
+        : `${seed.emoji} Unlock ${seed.name} · ${seed.cost} petals`;
+      button.setAttribute("aria-pressed", String(selected === seed.id));
+      button.disabled = !isUnlocked && coins < seed.cost;
+      button.classList.toggle("selected", selected === seed.id);
+    }
+  }
+
+  for (const button of flowerButtons) {
+    button.addEventListener("click", () => {
+      const seed = flowers.find((item) => item.id === button.dataset.seed);
+      if (!seed) return;
+      if (!unlocked.has(seed.id)) {
+        if (coins < seed.cost) return;
+        coins -= seed.cost;
+        unlocked.add(seed.id);
+        localStorage.setItem(unlockedKey, [...unlocked].join(","));
+      }
+      selected = seed.id;
+      status.textContent = `${seed.name} seed selected. Give it some water!`;
+      update();
+    });
+  }
+
+  waterButton.addEventListener("click", () => {
+    if (growth >= 100) return;
+    growth = Math.min(100, growth + 20);
+    const drop = document.createElement("span");
+    drop.className = "water-drop";
+    drop.textContent = "💧";
+    drop.style.left = `${34 + Math.random() * 32}%`;
+    plant.parentElement.append(drop);
+    window.setTimeout(() => drop.remove(), 900);
+    status.textContent = growth >= 100
+      ? "Your flower bloomed! Harvest it to earn 8 petals."
+      : "A little water helps your garden grow.";
+    update();
+  });
+
+  harvestButton.addEventListener("click", () => {
+    if (growth < 100) return;
+    harvests += 1;
+    localStorage.setItem(harvestKey, String(harvests));
+    const reward = harvests % 3 === 0 ? 18 : 8;
+    coins += reward;
+    localStorage.setItem(coinKey, String(coins));
+    growth = 0;
+    status.textContent = harvests % 3 === 0
+      ? `Bloom bonus! You earned ${reward} petals. Pick a new seed or grow another flower.`
+      : `Beautiful bloom! You earned ${reward} petals. Keep growing your garden.`;
+    const result = recordGameResult("garden-glow", "Garden Glow", "Bloom harvested", reward, `${reward} petals`);
+    showResultPopup("win", "A lovely bloom!", `${reward} petals earned${result.highScore ? " · New high score!" : ""}`);
+    update();
+  });
+
+  update();
+}
+
 const game = document.body.dataset.game;
 if (game === "tic-tac-toe") setupTicTacToe();
 if (game === "memory-match") setupMemoryMatch();
 if (game === "number-rush") setupNumberRush();
 if (game === "meteor-dash") setupMeteorDash();
 if (game === "startup-studio") setupStartupStudio();
+if (game === "bubble-pop") setupBubblePop();
+if (game === "garden-glow") setupGardenGlow();

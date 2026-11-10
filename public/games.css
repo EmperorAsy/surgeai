@@ -1,0 +1,51 @@
+.game-result {
+  position: fixed;
+  z-index: 20;
+  top: 18px;
+  left: 50%;
+  width: min(440px, calc(100% - 32px));
+  padding: 18px 20px;
+  border: 1px solid #6d64a8;
+  border-radius: 18px;
+  background: #17162a;
+  color: #f5f6fb;
+  box-shadow: 0 16px 48px #0009, 0 0 28px #9a8cff44;
+  text-align: left;
+  transform: translateX(-50%);
+}
+
+.game-result[hidden] { display: none; }
+.game-result[data-outcome="win"] { border-color: #69d7a1; box-shadow: 0 16px 48px #0009, 0 0 28px #69d7a144; }
+.game-result[data-outcome="lose"] { border-color: #ff886e; box-shadow: 0 16px 48px #0009, 0 0 28px #ff886e44; }
+.game-result[data-outcome="draw"] { border-color: #9da5ba; }
+.game-result.is-visible { animation: result-pop .48s cubic-bezier(.2, 1.6, .45, 1) both; }
+.game-result h2 { margin: 0 34px 5px 0; font-size: 1.15rem; }
+.game-result p { margin: 0; color: #c4c9d8; font-size: .88rem; line-height: 1.5; }
+.game-result button { position: absolute; top: 9px; right: 10px; border: 0; padding: 6px 9px; border-radius: 8px; background: #ffffff14; color: #fff; cursor: pointer; }
+.game-result button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+.cell.mark-pop, .number.number-pop, .action.feedback-pop, .cash.feedback-pop { animation: feedback-pop .36s cubic-bezier(.2, 1.7, .45, 1); }
+.cell.line-win, .card.match-pop { animation: winner-glow .8s ease-in-out 2 alternate; }
+.card.flip-pop { animation: card-flip .28s ease-out; }
+.number.wrong-pop { animation: wrong-shake .28s ease-in-out; }
+.game-canvas.collect-flash { box-shadow: 0 0 24px #67f6d5aa; }
+.game-canvas.screen-shake { animation: screen-shake .28s ease-in-out; }
+
+@keyframes result-pop {
+  from { opacity: 0; transform: translateX(-50%) translateY(-14px) scale(.72); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+@keyframes feedback-pop { 50% { transform: scale(1.09); } }
+@keyframes card-flip { 50% { transform: rotateY(90deg) scale(.92); } }
+@keyframes winner-glow { to { box-shadow: 0 0 24px #9a8cff77; transform: scale(1.04); } }
+@keyframes wrong-shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@keyframes screen-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .game-result.is-visible, .cell.mark-pop, .number.number-pop, .action.feedback-pop,
+  .cash.feedback-pop, .cell.line-win, .card.match-pop, .card.flip-pop,
+  .number.wrong-pop, .game-canvas.screen-shake {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

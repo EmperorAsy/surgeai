@@ -30,7 +30,8 @@ The `downloadUrl` for downloadable releases must be a GitHub Releases asset URL.
 
 - Cloudflare Pages project: `surgeai` (separate from `amansinghyadav-in`).
 - GitHub Pages site: `https://emperorasy.github.io/surgeai/`.
-- The arcade includes Tic-Tac-Toe, Memory Match, Number Rush, Meteor Dash, and Startup Studio.
+- The arcade includes Tic-Tac-Toe, Memory Match, Number Rush, Meteor Dash, Startup Studio, Bubble Pop, and Garden Glow.
+- Game pages animate plays and results, with a home-page list of each device's last 15 game scores. Scores and rewards use browser-local storage and are not shared across devices.
 - GitHub Actions deploys the `public` folder to GitHub Pages when changes are pushed to `main`.
 - To use `surgeai.si`, connect the domain to the SurgeAI Cloudflare Pages project in Cloudflare's Pages custom-domain settings. Do not connect `amansinghyadav.in` to this project.
 - Cloudflare Pages applies the security headers in `public/_headers`. GitHub Pages uses the in-document Content Security Policy, but static GitHub Pages cannot configure response headers such as HSTS or COOP.

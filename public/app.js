@@ -81,7 +81,45 @@ document.querySelectorAll(".filter").forEach((button) => {
 });
 
 document.querySelector("#year").textContent = new Date().getFullYear();
-fetch("./catalog.json?v=20261110-arcade-2")
+
+function renderRecentScores() {
+  const scoreList = document.querySelector("#recent-scores");
+  const emptyMessage = document.querySelector("#score-empty");
+  const history = JSON.parse(localStorage.getItem("surgeai-recent-scores") || "[]");
+  if (!Array.isArray(history)) throw new Error("Recent game scores are invalid.");
+  const recent = history.slice(0, 15);
+  scoreList.replaceChildren();
+  emptyMessage.hidden = recent.length > 0;
+
+  for (const result of recent) {
+    const item = document.createElement("li");
+    item.className = "score-entry";
+    const details = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = result.title;
+    const outcome = document.createElement("span");
+    const date = new Date(result.playedAt);
+    outcome.textContent = `${result.outcome} · ${Number.isNaN(date.getTime()) ? "" : date.toLocaleDateString()}`;
+    details.append(title, outcome);
+    if (result.highScore) {
+      const badge = document.createElement("span");
+      badge.className = "score-badge";
+      badge.textContent = "New high";
+      details.append(badge);
+    }
+    const score = document.createElement("span");
+    score.className = "score-value";
+    score.textContent = result.scoreLabel;
+    item.append(details, score);
+    scoreList.append(item);
+  }
+}
+
+renderRecentScores();
+window.addEventListener("surgeai:scores-updated", renderRecentScores);
+window.addEventListener("pageshow", renderRecentScores);
+
+fetch("./catalog.json?v=20261110-rewards-2")
   .then((response) => {
     if (!response.ok) throw new Error("Catalog request failed.");
     return response.json();

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090b12" />
+    <meta name="description" content="Grow animated flowers, harvest petals, and unlock new seeds in Garden Glow on SurgeAI." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'" />
+    <link rel="canonical" href="https://surgeai.si/games/garden-glow/" />
+    <link rel="stylesheet" href="../../games.css?v=20261110-rewards-2" />
+    <title>Garden Glow — SurgeAI</title>
+    <style>
+      :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #090b12; color: #f5f6fb; --muted: #9da5ba; --line: #252a3b; --accent: #9a8cff; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; background: radial-gradient(ellipse at 50% 0, #243e39, transparent 55%), #090b12; }
+      a { color: inherit; text-decoration: none; }
+      header, footer { border-color: #ffffff12; border-style: solid; }
+      header { border-width: 0 0 1px; }
+      footer { border-width: 1px 0 0; color: var(--muted); font-size: .82rem; }
+      .wrap { width: min(800px, calc(100% - 32px)); margin: auto; }
+      .nav, .footer { min-height: 68px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      .brand { font-weight: 850; letter-spacing: -.06em; }.brand span { color: #9eefd0; }
+      .back { color: var(--muted); font-size: .88rem; }
+      main { align-self: center; width: min(100% - 32px, 620px); margin: 30px auto; }
+      .heading { text-align: center; }
+      .eyebrow { color: #a7f3d0; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: .7rem; }
+      h1 { margin: 10px 0; font-size: clamp(2.4rem, 10vw, 4rem); line-height: 1; letter-spacing: -.07em; }
+      .intro { color: var(--muted); line-height: 1.6; margin: 0 auto 20px; max-width: 510px; }
+      .panel { padding: clamp(16px, 4vw, 26px); border: 1px solid var(--line); border-radius: 22px; background: #111522e8; }
+      .topline { display: flex; justify-content: space-between; gap: 12px; color: #a7f3d0; font-weight: 800; }
+      .garden { position: relative; display: grid; place-items: center; min-height: 230px; margin: 16px 0; overflow: hidden; border: 1px solid #34564c; border-radius: 18px; background: linear-gradient(#122b2a, #17271f 76%, #273522 76%); }
+      .garden::before, .garden::after { position: absolute; bottom: 23%; color: #a7f3d077; font-size: 2rem; content: "✦"; animation: twinkle 2s ease-in-out infinite alternate; }
+      .garden::before { left: 16%; }.garden::after { right: 18%; animation-delay: .8s; }
+      .plant { z-index: 1; font-size: clamp(5rem, 24vw, 8rem); line-height: 1; filter: drop-shadow(0 0 22px #8df0c066); transform-origin: bottom center; animation: sway 2.8s ease-in-out infinite alternate; transition: filter .3s; }
+      .plant[data-stage="3"] { filter: drop-shadow(0 0 30px #f8d878aa); animation: bloom .6s cubic-bezier(.2, 1.7, .5, 1) both; }
+      .plant[data-flower="moonflower"] { filter: drop-shadow(0 0 24px #a98dff99); }
+      .plant[data-flower="starflower"] { filter: drop-shadow(0 0 28px #ffd879aa); }
+      .water-drop { position: absolute; z-index: 2; top: 28%; font-size: 1.3rem; pointer-events: none; animation: water-fall .8s ease-in forwards; }
+      .progress-row { display: flex; justify-content: space-between; gap: 12px; color: #d7d0ff; font-size: .85rem; }
+      progress { display: block; width: 100%; height: 12px; margin: 8px 0 14px; accent-color: #72dfad; }
+      .status { min-height: 2.8em; margin: 12px 0; color: var(--muted); line-height: 1.5; font-size: .9rem; }
+      .controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+      .action, .seed { border: 1px solid #456052; border-radius: 11px; padding: 11px 16px; background: #183229; color: #e6fff1; font-weight: 800; cursor: pointer; }
+      .action:hover:not(:disabled), .seed:hover:not(:disabled) { background: #21483a; border-color: #8df0c0; }
+      .action:disabled, .seed:disabled { opacity: .5; cursor: default; }
+      .seeds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+      .seed { padding: 10px 6px; font-size: .78rem; }
+      .seed.selected { border-color: #a7f3d0; background: #22533f; }
+      .help { margin: 12px 0 0; color: var(--muted); text-align: center; font-size: .76rem; line-height: 1.5; }
+      .action:focus-visible, .seed:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+      @keyframes sway { from { transform: rotate(-3deg) translateY(1px); } to { transform: rotate(3deg) translateY(-5px); } }
+      @keyframes bloom { from { transform: scale(.45); } to { transform: scale(1); } }
+      @keyframes twinkle { from { opacity: .35; transform: scale(.8); } to { opacity: 1; transform: scale(1.2); } }
+      @keyframes water-fall { to { opacity: 0; transform: translateY(95px) rotate(25deg); } }
+      @media (max-width: 420px) { .seeds { grid-template-columns: 1fr; }.seed { padding: 12px; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
+    </style>
+  </head>
+  <body data-game="garden-glow">
+    <header><div class="wrap nav"><a class="brand" href="../../">SURGE<span>AI</span></a><a class="back" href="../../">← All games</a></div></header>
+    <main>
+      <div class="heading">
+        <span class="eyebrow">Cozy · Grow and collect</span>
+        <h1>Garden Glow</h1>
+        <p class="intro">Water your flower, watch it grow, then harvest petals to unlock glowing new seeds.</p>
+      </div>
+      <section class="panel" aria-label="Garden Glow game">
+        <div class="topline"><span id="coins">Petals: 0</span><span id="harvests">Blooms: 0</span></div>
+        <div class="garden" aria-label="Your animated flower garden"><span class="plant" id="plant" data-stage="0" aria-live="polite">🌱</span></div>
+        <div class="progress-row"><span>Garden growth</span><span id="progress-label">0% grown</span></div>
+        <progress id="progress" max="100" value="0" aria-label="Flower growth progress"></progress>
+        <p class="status" id="status" aria-live="polite">Give your seed some water and watch it grow.</p>
+        <div class="controls">
+          <button class="action" id="water" type="button">💧 Water flower</button>
+          <button class="action" id="harvest" type="button" disabled>🌼 Harvest · 8 petals</button>
+        </div>
+        <div class="seeds" aria-label="Flower seeds">
+          <button class="seed selected" type="button" data-seed="sunflower" aria-pressed="true">🌻 Sunflower</button>
+          <button class="seed" type="button" data-seed="moonflower" aria-pressed="false">🌸 Moonflower</button>
+          <button class="seed" type="button" data-seed="starflower" aria-pressed="false">🌟 Starflower</button>
+        </div>
+        <p class="help">A bloom earns 8 petals; every third bloom gives an 18-petal bonus. Petals and unlocked seeds are saved on this device. Rewards are virtual game points.</p>
+      </section>
+    </main>
+    <footer><div class="wrap footer"><span>SurgeAI Arcade</span><a class="back" href="../../">Back to the catalog</a></div></footer>
+    <script src="../../games.js?v=20261110-rewards-2" defer></script>
+  </body>
+</html>

@@ -58,6 +58,18 @@
       .download:hover { background: #b0a7ff; }
       .empty { grid-column: 1 / -1; border: 1px dashed #353b50; border-radius: 18px; padding: 45px 20px; text-align: center; color: var(--muted); }
       .empty strong { display: block; color: #e5e7f2; margin-bottom: 6px; }
+      .score-history { margin-top: 32px; border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: #111522dd; }
+      .score-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+      .score-heading h2 { margin: 0; font-size: 1.15rem; }
+      .score-heading p, .score-empty { color: var(--muted); font-size: .82rem; }
+      .score-list { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+      .score-entry { display: flex; justify-content: space-between; align-items: center; gap: 12px; border: 1px solid #252a3b; border-radius: 12px; padding: 11px 13px; background: #0c0f19; }
+      .score-entry strong, .score-entry span { display: block; }
+      .score-entry strong { font-size: .88rem; }
+      .score-entry span { margin-top: 4px; color: var(--muted); font-size: .74rem; }
+      .score-value { flex: 0 0 auto; color: #d7d0ff; font-weight: 800; font-size: .82rem; text-align: right; }
+      .score-badge { display: inline-block !important; color: #8df0c0 !important; font-weight: 800; }
+      .score-empty { margin: 16px 0 0; }
       footer { border-top: 1px solid #ffffff12; padding: 22px 0; color: var(--muted); font-size: .8rem; }
       .footer { display: flex; justify-content: space-between; gap: 20px; }
       .footer a:hover { color: #fff; }
@@ -89,6 +101,14 @@
       <div class="grid" id="catalog" aria-live="polite">
         <div class="empty"><strong>Loading the collection…</strong>Please wait a moment.</div>
       </div>
+      <section class="score-history" aria-labelledby="score-title">
+        <div class="score-heading">
+          <h2 id="score-title">Recent high scores</h2>
+          <p>Last 15 games · saved on this device</p>
+        </div>
+        <ol class="score-list" id="recent-scores" aria-live="polite"></ol>
+        <p class="score-empty" id="score-empty">Finish a game to see your recent scores here.</p>
+      </section>
     </main>
     <footer>
       <div class="wrap footer">
@@ -96,6 +116,6 @@
         <a href="https://github.com/EmperorAsy/surgeai/releases">Get the releases</a>
       </div>
     </footer>
-    <script src="./app.js?v=20261110-arcade-2" defer></script>
+    <script src="./app.js?v=20261110-rewards-2" defer></script>
   </body>
 </html>
