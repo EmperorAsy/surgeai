@@ -81,7 +81,7 @@ document.querySelectorAll(".filter").forEach((button) => {
 });
 
 document.querySelector("#year").textContent = new Date().getFullYear();
-fetch("./catalog.json?v=20261110-games-1")
+fetch("./catalog.json?v=20261110-arcade-2")
   .then((response) => {
     if (!response.ok) throw new Error("Catalog request failed.");
     return response.json();
