@@ -4,9 +4,8 @@ SurgeAI is a static catalog of apps and games. The website is designed to deploy
 
 ## Publishing an app or game
 
-1. In the public `EmperorAsy/surgeai` repository, create a GitHub Release and attach the APK, EXE, MSI, or ZIP file. Each release asset must be under 2 GiB.
-2. Copy the asset's release download URL.
-3. Add an entry to `public/catalog.json`:
+1. For a downloadable app or game, create a GitHub Release and attach the APK, EXE, MSI, or ZIP file. Each release asset must be under 2 GiB.
+2. Add an entry to `public/catalog.json` with the release asset URL:
 
    ```json
    [
@@ -22,9 +21,10 @@ SurgeAI is a static catalog of apps and games. The website is designed to deploy
    ]
    ```
 
+3. For a browser game, add an entry with a relative `playUrl`, for example `"playUrl": "./games/tic-tac-toe/"`. Put the game's static files in `public/games/<game-name>/`.
 4. Commit the catalog update to `main`. The GitHub Pages workflow deploys the site automatically. Deploy the same `public` directory to the separate Cloudflare Pages project with `npx wrangler pages deploy public --project-name surgeai --branch main`.
 
-The `downloadUrl` must be a GitHub Releases asset URL. Set `size` to the asset size in bytes; omit it if unknown. Only trusted repository maintainers should publish catalog entries and releases. Releases and the website are public.
+The `downloadUrl` for downloadable releases must be a GitHub Releases asset URL. Set `size` to the asset size in bytes; omit it if unknown. A `playUrl` must point to a same-site path under `/games/`. Only trusted repository maintainers should publish catalog entries and releases. Releases and the website are public.
 
 ## Hosting
 

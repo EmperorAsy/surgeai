@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "tic-tac-toe",
+    "title": "Tic-Tac-Toe",
+    "description": "A quick, classic two-player showdown. Take turns and get three marks in a row.",
+    "category": "game",
+    "platform": "Browser · 2 players",
+    "playUrl": "./games/tic-tac-toe/"
+  },
+  {
+    "id": "memory-match",
+    "title": "Memory Match",
+    "description": "Flip the cards, find all six pairs, and see how few moves your memory needs.",
+    "category": "game",
+    "platform": "Browser · Solo",
+    "playUrl": "./games/memory-match/"
+  },
+  {
+    "id": "number-rush",
+    "title": "Number Rush",
+    "description": "Race the 30-second clock and tap every number from 1 to 25 in order.",
+    "category": "game",
+    "platform": "Browser · Solo",
+    "playUrl": "./games/number-rush/"
+  }
+]

@@ -41,21 +41,31 @@ function renderCatalog() {
     title.textContent = item.title;
     const description = document.createElement("p");
     description.textContent = item.description;
-    const download = document.createElement("a");
-    download.className = "download";
-    const releaseUrl = new URL(item.downloadUrl);
-    if (
-      releaseUrl.protocol !== "https:" ||
-      releaseUrl.hostname !== "github.com" ||
-      !releaseUrl.pathname.includes("/releases/download/")
-    ) {
-      throw new Error("Catalog contains an invalid release URL.");
+    const action = document.createElement("a");
+    action.className = "download";
+    if (item.playUrl) {
+      const playUrl = new URL(item.playUrl, document.baseURI);
+      const gamePath = new URL("./games/", document.baseURI).pathname;
+      if (playUrl.origin !== location.origin || !playUrl.pathname.startsWith(gamePath)) {
+        throw new Error("Catalog contains an invalid game URL.");
+      }
+      action.href = playUrl.href;
+      action.textContent = "Play now";
+    } else {
+      const releaseUrl = new URL(item.downloadUrl);
+      if (
+        releaseUrl.protocol !== "https:" ||
+        releaseUrl.hostname !== "github.com" ||
+        !releaseUrl.pathname.includes("/releases/download/")
+      ) {
+        throw new Error("Catalog contains an invalid release URL.");
+      }
+      action.href = releaseUrl.href;
+      action.textContent = Number.isFinite(item.size) && item.size > 0
+        ? `Download · ${(item.size / (1024 * 1024)).toFixed(1)} MB`
+        : "Download";
     }
-    download.href = releaseUrl.href;
-    download.textContent = Number.isFinite(item.size) && item.size > 0
-      ? `Download · ${(item.size / (1024 * 1024)).toFixed(1)} MB`
-      : "Download";
-    card.append(top, title, description, download);
+    card.append(top, title, description, action);
     catalog.append(card);
   }
 }
@@ -71,7 +81,7 @@ document.querySelectorAll(".filter").forEach((button) => {
 });
 
 document.querySelector("#year").textContent = new Date().getFullYear();
-fetch("/catalog.json")
+fetch("./catalog.json")
   .then((response) => {
     if (!response.ok) throw new Error("Catalog request failed.");
     return response.json();
